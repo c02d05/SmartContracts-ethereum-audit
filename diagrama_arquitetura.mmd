@@ -1,0 +1,73 @@
+graph TB
+    subgraph "Ethereum Network"
+        ETH[Ethereum Blockchain]
+        ETHERSCAN[Etherscan API]
+    end
+    
+    subgraph "Agente Auditor"
+        MONITOR[Monitor On-chain<br/>WebSocket Connection]
+        RETRIEVER[Recuperador de Código<br/>Etherscan Integration]
+        QUEUE[Fila de Processamento<br/>Redis/Memory]
+        
+        subgraph "Motor de Auditoria"
+            STATIC[Análise Estática<br/>Slither]
+            PATTERN[Análise de Padrões<br/>Custom Rules]
+            CONSOLIDATOR[Consolidador<br/>Results Merger]
+        end
+        
+        REPORTER[Gerador de Relatórios<br/>PDF/Markdown]
+        ALERTER[Sistema de Alertas<br/>Webhooks/Email]
+        
+        subgraph "Armazenamento"
+            DB[(Banco de Dados<br/>SQLite/PostgreSQL)]
+            CACHE[(Cache<br/>Redis)]
+        end
+        
+        subgraph "API Layer"
+            API[API REST<br/>Flask]
+        end
+        
+        subgraph "Frontend"
+            WEB[Dashboard Web<br/>React.js]
+        end
+    end
+    
+    subgraph "Sistemas Externos"
+        WEBHOOK[Webhook Endpoints]
+        EMAIL[Email Service]
+        SLACK[Slack/Discord]
+    end
+    
+    %% Conexões principais
+    ETH -->|New Blocks| MONITOR
+    MONITOR -->|Contract Address| QUEUE
+    QUEUE -->|Process Contract| RETRIEVER
+    RETRIEVER -->|Get Source Code| ETHERSCAN
+    RETRIEVER -->|Code Retrieved| STATIC
+    RETRIEVER -->|Code Retrieved| PATTERN
+    
+    STATIC -->|Results| CONSOLIDATOR
+    PATTERN -->|Results| CONSOLIDATOR
+    CONSOLIDATOR -->|Consolidated Results| REPORTER
+    CONSOLIDATOR -->|Critical Issues| ALERTER
+    
+    REPORTER -->|Store Report| DB
+    ALERTER -->|Send Alerts| WEBHOOK
+    ALERTER -->|Send Alerts| EMAIL
+    ALERTER -->|Send Alerts| SLACK
+    
+    DB -->|Query Data| API
+    CACHE -->|Cached Results| API
+    API -->|REST Endpoints| WEB
+    
+    %% Estilos
+    classDef ethereum fill:#627eea,stroke:#333,stroke-width:2px,color:#fff
+    classDef auditor fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+    classDef storage fill:#4ecdc4,stroke:#333,stroke-width:2px,color:#fff
+    classDef external fill:#95e1d3,stroke:#333,stroke-width:2px,color:#333
+    
+    class ETH,ETHERSCAN ethereum
+    class MONITOR,RETRIEVER,STATIC,PATTERN,CONSOLIDATOR,REPORTER,ALERTER auditor
+    class DB,CACHE storage
+    class WEBHOOK,EMAIL,SLACK external
+
