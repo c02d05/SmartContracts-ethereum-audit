@@ -905,7 +905,7 @@ A contribuição para segurança do ecossistema Ethereum é significativa, forne
 
 ---
 
-**Documento técnico elaborado por Manus AI**  
+**Documento técnico elaborado por C02d05**  
 **Ethereum Smart Contract Auditor Agent v1.0**  
 **Agosto de 2025**
 
