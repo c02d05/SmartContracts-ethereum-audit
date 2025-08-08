@@ -2,7 +2,7 @@
 
 **Versão**: 1.0  
 **Data**: 07 de Agosto de 2025  
-**Autor**: Manus AI  
+**Autor**: c02d05  
 
 ## Sumário Executivo
 
