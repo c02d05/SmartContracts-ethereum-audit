@@ -547,5 +547,5 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 
 ---
 
-**Desenvolvido por Manus AI** - Agente Auditor de Smart Contracts Ethereum de Alta Precisão
+**Desenvolvido por C020d5** - Agente Auditor de Smart Contracts Ethereum de Alta Precisão
 
